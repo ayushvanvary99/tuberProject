@@ -21,18 +21,30 @@ def home(request):
 
 def about(request):
     paras = Pargraph.objects.all()
+    baseinfo= BaseDetail.objects.all()
 
     teams = Team.objects.all()
     data ={
         
         'teams': teams,
         'paras': paras,
+        'baseinfo': baseinfo,
        
     }
     return render(request,'webpages/about.html',data)
 
 def services(request):
-    return render(request,'webpages/services.html')
+    baseinfo= BaseDetail.objects.all()
+     
+    data={
+         'baseinfo':baseinfo,
+     }
+    return render(request,'webpages/services.html',data)
 
 def contact(request):
-     return render(request,'webpages/contact.html')
+     baseinfo= BaseDetail.objects.all()
+     
+     data={
+         'baseinfo':baseinfo,
+     }
+     return render(request,'webpages/contact.html',data)

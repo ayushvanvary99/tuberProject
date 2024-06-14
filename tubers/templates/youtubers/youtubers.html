@@ -24,7 +24,7 @@
 
 
             <!-- person 1 -->
-           {% for tuber in tubers %}
+           {% for tuber in page_obj %}
 
             <div class="card border-0 text-center">
               <div class="feature-text">
@@ -72,67 +72,65 @@
           </section>
         </div>
 
-        <div class="col-lg-4 ">
+         <div class="col-lg-4 ">
           <div class="card">
             <div class="card-body">
               <p class="text-left font-weight-bolder text-black-50">
                 Search Tubers
               </p>
-              <form>
+            <form method="get">
                 <div class="form-group">
-                  <select name="city" id="inputState" class="form-control">
-                    <option selected disabled hidden>City</option>
-                    {% for city in city_search %}
-                    <option value="{{city}}">{{city}}</option>
-                    {% endfor %}
-                  </select>
-                </div>
-                <div class="form-group">
-                  <select name="camera_type" id="inputState" class="form-control">
-                    <option selected disabled hidden>Camera Type</option>
-                    {% for cam in camera_search %}
-                   
-                    <option value="{{cam}}">{{cam}}</option>
-                    {% endfor %}
-                  </select>
-                </div>
-                <div class="form-group">
-                  <select name="category" id="inputState" class="form-control">
-                    <option selected disabled hidden>Category</option>
-                    {% for cat in category_search %}
-                   
-                    <option value="{{cat}}">{{cat}}</option>
-                    {% endfor %}
-                  </select>
                  
-                </div>
-                <button class="btn btn-accent btn-block">Search</button>
-              </form>
+                  
+                      {{ yt_filter.form.as_p}}
+                      <button class="btn btn-accent btn-block">Search</button>
+                      
+
+               
+                      </div>
+              </form> 
+             
+            
+            <!-- Display filtered results -->
+            
+          
+            
+            
+            
+            
+            
+            
 
 
              
             </div>
           </div>
-        </div>
+        </div> 
+         
+
+       
+
+    
+      
       </div>
     </section>
 
-    <div class="container section pagination-section mt-3">
+    {% comment %} <div class="container section pagination-section mt-3">
       <nav aria-label="Page navigation example">
         <ul class="pagination justify-content-center">
           {% if tubers.has_previous %}
-          <!-- <li class="page-item"><a class="page-link" href="#">1</a></li> -->
+           <li class="page-item"><a class="page-link" href="#">1</a></li> 
           <li class="page-item ">
             <a class="page-link" href="/youtubers/?page={{tubers.previous_page_number}}" tabindex="-1" aria-disabled="true">Previous</a>
           </li>
           
          {% endif %}
-          <!-- <li class="page-item"><a class="page-link" href="#">1</a></li>
+         <li class="page-item"><a class="page-link" href="#">1</a></li>
           <li class="page-item"><a class="page-link" href="#">2</a></li>
           <li class="page-item"><a class="page-link" href="#">3</a></li>
-          <li class="page-item"> -->
+          <li class="page-item"> 
             {% if tubers.has_next %}
-            <!-- <li class="page-item"><a class="page-link" href="#">1</a></li> -->
+            <li class="page-item"><a class="page-link" href="#">1</a></li> 
             <li class="page-item ">
               <a class="page-link" href="/youtubers/?page={{tubers.next_page_number}}" tabindex="-1" aria-disabled="true">Next</a>
             </li>
@@ -140,7 +138,34 @@
           </li>
         </ul>
       </nav>
-    </div>
+    </div> {% endcomment %}
+    <div class="d-flex justify-content-center">
+      <nav aria-label="Pagination">
+          <ul class="pagination">
+              {% if page_obj.has_previous %}
+                  <li class="page-item">
+                      <a class="page-link" href="?page=1{% if filter_params %}&{{ filter_params }}{% endif %}">&laquo; First</a>
+                  </li>
+                  <li class="page-item">
+                      <a class="page-link" href="?page={{ page_obj.previous_page_number }}{% if filter_params %}&{{ filter_params }}{% endif %}">Previous</a>
+                  </li>
+              {% endif %}
+  
+              <li class="page-item active">
+                  <a class="page-link" href="?page={{ page_obj.number }}{% if filter_params %}&{{ filter_params }}{% endif %}">{{ page_obj.number }}</a>
+              </li>
+  
+              {% if page_obj.has_next %}
+                  <li class="page-item">
+                      <a class="page-link" href="?page={{ page_obj.next_page_number }}{% if filter_params %}&{{ filter_params }}{% endif %}">Next</a>
+                  </li>
+                  <li class="page-item">
+                      <a class="page-link" href="?page={{ page_obj.paginator.num_pages }}{% if filter_params %}&{{ filter_params }}{% endif %}">Last &raquo;</a>
+                  </li>
+              {% endif %}
+          </ul>
+      </nav>
+  </div>
   </main>
 
 {% endblock %}

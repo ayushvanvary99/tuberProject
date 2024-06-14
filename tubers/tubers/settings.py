@@ -91,11 +91,8 @@ WSGI_APPLICATION = 'tubers.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'lcotubers',
-        'USER': 'postgres',
-        'PASSWORD': '1234',
-        'HOST':'localhost'
+       "ENGINE": "django.db.backends.sqlite3",
+       "NAME": BASE_DIR / "db.sqlite3",
     }
 }
 
@@ -146,3 +143,10 @@ STATICFILES_DIRS = [
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 SITE_ID = 1
+
+
+
+
+
+
+
